@@ -2,6 +2,7 @@
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -53,7 +54,7 @@ public class FootballRoster {
 		}
 		// If the file fails to open, prompt user to try again
 		catch (Exception expt) {
-			System.out.println("There was an issue saving to " + fileName + ".");
+			System.out.println("There was an issue saving to " + fileName);
 			System.out.println("Please try again or try another file name.");
 		}
 		
@@ -70,8 +71,22 @@ public class FootballRoster {
 		}
 	}
 	
-	public void loadRosterFromFile(String fileName) throws FileNotFoundException {
-		FileInputStream inStream = new FileInputStream(fileName);
+	public void loadRosterFromFile(String fileName) {
+		// Try opening an input stream with the file name passed
+		FileInputStream inputStream = null;
+		try {
+			inputStream = this.openInputStream(fileName);
+		}
+		catch (Exception expt) {
+			System.out.println("There was an issue opening " + fileName);
+			System.out.println("Please try again or try another file name.");
+		}
+		
+		// Create a scanner to read the file
+		Scanner fileScanner = new Scanner(inputStream);
+		
+		this.readFileToRoster(fileScanner);
+		fileScanner.close();
 	}
 	
 	
@@ -100,5 +115,41 @@ public class FootballRoster {
 		}
 		
 		return "offense";
+	}
+	
+	private FileInputStream openInputStream(String fileName) throws IOException {
+		FileInputStream inputStream = new FileInputStream(fileName);
+		
+		return inputStream;
+	}
+	
+	private void readFileToRoster(Scanner fileScanner) {
+		// Clear the former array contents and reset the size
+		this.clearRosterArray();
+		this.totalPlayers = 0;
+		
+		// While there is another line to scan in the file
+		// create an instance of a player and read file contents into the player object
+		while (fileScanner.hasNextLine()) {
+			String name = fileScanner.nextLine();
+			String position = fileScanner.nextLine();
+			double yards = Double.parseDouble(fileScanner.nextLine());
+			boolean isDefensive = fileScanner.nextLine() == "defense" ? true : false; // Sets the isDefensive boolean based on position type written to file
+			
+			// Create an instance of a player with the information read from the file
+			Player nextPlayer = new Player(name, position, yards, isDefensive);
+			
+			// Add the player to the next null value in the roster array
+			this.rosterArray[this.totalPlayers] = nextPlayer;
+			
+			// Increment the total players to the next null index and value of total players in the array
+			this.totalPlayers++;
+		}
+	}
+	
+	private void clearRosterArray() {
+		for (int i = 0; i < this.totalPlayers; i++) {
+			this.rosterArray[i] = null;
+		}
 	}
 }
