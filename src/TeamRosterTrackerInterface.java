@@ -14,7 +14,7 @@ public class TeamRosterTrackerInterface {
 		do {
 			try {
 				menuChoice = menu.getMenuChoice();
-				menu.handleMenuChoice();
+				menu.handleMenuChoice(roster);
 			}
 			catch (Exception e) {
 				System.out.println();

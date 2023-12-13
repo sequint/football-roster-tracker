@@ -19,10 +19,14 @@ public class Menu {
 		return this.menuChoice;
 	}
 	
-	public void handleMenuChoice() {
+	public void handleMenuChoice(FootballRoster roster) {
 		switch (this.menuChoice) {
 			case 1:
-				System.out.println(this.menuChoice);
+				Player newPlayer = this.createNewPlayer();
+				roster.addPlayer(newPlayer);
+				
+				System.out.println(newPlayer.getName() + " has been added to the roster!");
+				
 				break;
 			case 2:
 				System.out.println(this.menuChoice);
@@ -58,5 +62,57 @@ public class Menu {
 		System.out.println("5. Exit");
 		System.out.println();
 		System.out.println("Please enter a number from the menu options above: ");
+	}
+	
+	private Player createNewPlayer() {
+		System.out.println("Create a player");
+		System.out.println();
+		
+		System.out.println("Enter the player's name: ");
+		String name = this.scnr.nextLine();
+		
+		System.out.println("Enter the player's position on the team: ");
+		String position = this.scnr.nextLine();
+		
+		boolean inputIsNotDouble = true;  // Used to check user input for yards input
+		double totalYards = 0.0;
+		
+		// Try getting total yards, and prompting again if there is not a valid input
+		do {
+			System.out.println("Enter the player's total passing, receiving, and rushing yards: ");
+			try {
+				totalYards = Double.parseDouble(this.scnr.nextLine());
+				inputIsNotDouble = false;
+			}
+			catch (Exception e) {
+				System.out.println("Please enter a number for your input.");
+			}
+		} while (inputIsNotDouble);
+		
+		char yesOrNo = ' ';
+		boolean inputIsNotValid = true;
+		boolean isDefensive = false;
+		
+		// Try getting y or n input for whether or not a player is in defensive position
+		// Prompt again if the input is not y or n (or capital version of those characters)
+		do {
+			System.out.println("Is the player in a defensive position? (y/n)");
+			yesOrNo = this.scnr.next().charAt(0);
+			
+			System.out.println(Character.toLowerCase(yesOrNo));
+			
+			if (Character.toLowerCase(yesOrNo) == 'y' || Character.toLowerCase(yesOrNo) == 'n') {
+				isDefensive = yesOrNo == 'y' ? true : false;
+				inputIsNotValid = false;
+				this.scnr.nextLine();  // Clear the input
+			}
+			else {
+				System.out.println("Please enter with either a 'y' or an 'n'");
+				this.scnr.nextLine();  // Clear the input
+			}
+		} while (inputIsNotValid);
+		
+		// Return a new player created with inputs
+		return new Player(name, position, totalYards, isDefensive);
 	}
 }
