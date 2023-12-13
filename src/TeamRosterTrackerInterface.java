@@ -2,29 +2,26 @@
 public class TeamRosterTrackerInterface {
 
 	public static void main(String[] args) {
+		FootballRoster roster = new FootballRoster();
+		Menu menu = new Menu();
+		int menuChoice = 0;
 		
-		// To be updated, for test only
-		Player player1 = new Player("Steven", "QB", 230.45, false);
-		
-		System.out.println(player1.getName());
-		System.out.println(player1.getPosition());
-		System.out.println(player1.getpassingReceivingRushingYards());
-		System.out.println(player1.hasOffensivePosition());
-		System.out.println(player1.hasDefensivePosition());
-		
-		FootballRoster roster1 = new FootballRoster();
-		
+		// Display program title
+		System.out.println("TEAM ROSTER TRACKER");
 		System.out.println();
-		System.out.println(roster1.getTotalNumberOfPlayers());
 		
-		roster1.addPlayer(player1);
-		roster1.addPlayer(player1);
-		
-		System.out.println(roster1.getTotalNumberOfPlayers());
-		
-		Player testPlayer = roster1.getPlayer(1);
-		System.out.println(testPlayer.getName());
-
+		// Display and handle menu choice while it is not 5 (exit)
+		do {
+			try {
+				menuChoice = menu.getMenuChoice();
+				menu.handleMenuChoice();
+			}
+			catch (Exception e) {
+				System.out.println();
+				System.out.println("Invalid input. Please only enter an integer for your menu choice.");
+				System.out.println();
+			}
+		} while (menuChoice != 5);
 	}
 
 }
