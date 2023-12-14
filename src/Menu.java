@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.lang.NullPointerException;
 
 public class Menu {
 	private Scanner scnr;
@@ -25,25 +26,52 @@ public class Menu {
 				Player newPlayer = this.createNewPlayer();
 				roster.addPlayer(newPlayer);
 				
-				System.out.println(newPlayer.getName() + " has been added to the roster!");
+				System.out.println("\n" + newPlayer.getName() + " has been added to the roster!\n");
 				
 				break;
+				
 			case 2:
-				System.out.println(this.menuChoice);
+				int playerIndex = 0;
+				
+				System.out.println("\nEnter the index position within the roster array to get that players info: ");
+				
+				try {
+					playerIndex = Integer.parseInt(this.scnr.nextLine());
+					
+					Player player = roster.getPlayer(playerIndex);
+					
+					String positionType = player.hasDefensivePosition() ? "Defense" : "Offense";
+					
+					System.out.println("\nPlayer Info:\n");
+					System.out.println("Name: " + player.getName());
+					System.out.println("Position: " + player.getPosition());
+					System.out.println("Total Passing/Receiving/Rushing Yards: " + player.getpassingReceivingRushingYards());
+					System.out.println("Position Type: " + positionType);
+					System.out.println();
+				}
+				catch (NullPointerException nullExpt) {
+					System.out.print("\nThat index does not exist in the roster array.\n\n");
+				}
+				catch (Exception e) {
+					System.out.print("\nInvalid input, please enter an integer to access a player's information.\n\n");
+				}
+				
 				break;
+				
 			case 3:
 				System.out.println(this.menuChoice);
 				break;
+				
 			case 4:
 				System.out.println(this.menuChoice);
 				break;
+				
 			case 5:
 				System.out.println("Have a great day!");
 				break;
+				
 			default:
-				System.out.println();
-				System.out.println("Please enter a number 1-5 only.");
-				System.out.println();
+				System.out.println("\nPlease enter a number 1-5 only.\n");
 				break;
 		}
 	}
@@ -65,8 +93,7 @@ public class Menu {
 	}
 	
 	private Player createNewPlayer() {
-		System.out.println("Create a player");
-		System.out.println();
+		System.out.println("\nCreate a player\n");
 		
 		System.out.println("Enter the player's name: ");
 		String name = this.scnr.nextLine();

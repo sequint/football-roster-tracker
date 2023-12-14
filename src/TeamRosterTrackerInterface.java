@@ -17,9 +17,7 @@ public class TeamRosterTrackerInterface {
 				menu.handleMenuChoice(roster);
 			}
 			catch (Exception e) {
-				System.out.println();
-				System.out.println("Invalid input. Please only enter an integer for your menu choice.");
-				System.out.println();
+				System.out.println("\nInvalid input. Please only enter an integer for your menu choice.\n");
 			}
 		} while (menuChoice != 5);
 	}
