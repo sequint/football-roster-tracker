@@ -59,11 +59,16 @@ public class Menu {
 				break;
 				
 			case 3:
-				System.out.println(this.menuChoice);
+				System.out.println("Enter file name to save roster to (will be saved as a .txt file, do not include '.txt' in name)");  // Save specific message
+				String fileName = this.getFileName(this.scnr);
+				roster.saveRosterToFile(fileName);
+				
+				System.out.println("\nRoster saved to " + fileName + ".\n");
+				
 				break;
 				
 			case 4:
-				System.out.println(this.menuChoice);
+//				String fileName = this.getFileName(this.scnr);
 				break;
 				
 			case 5:
@@ -141,5 +146,13 @@ public class Menu {
 		
 		// Return a new player created with inputs
 		return new Player(name, position, totalYards, isDefensive);
+	}
+	
+	private String getFileName(Scanner scnr) {
+		System.out.print("File name: ");
+		
+		String fileName = scnr.nextLine();
+		
+		return fileName + ".txt";
 	}
 }
