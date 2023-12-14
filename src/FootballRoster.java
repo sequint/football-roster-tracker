@@ -85,7 +85,7 @@ public class FootballRoster {
 			Scanner fileScanner = new Scanner(inputStream);
 			
 			this.readFileToRoster(fileScanner);
-			System.out.println("\nData from " + fileName + " has been loaded to the roster.\n");
+			System.out.println("\nData from " + fileName + " has been loaded to the roster.");
 			
 			fileScanner.close();
 		}
