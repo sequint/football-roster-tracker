@@ -1,10 +1,9 @@
-
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.NullPointerException;
 
 public class FootballRoster {
 	private Player[] rosterArray;
@@ -77,16 +76,19 @@ public class FootballRoster {
 		try {
 			inputStream = this.openInputStream(fileName);
 		}
-		catch (Exception expt) {
-			System.out.println("There was an issue opening " + fileName);
-			System.out.println("Please try again or try another file name.");
+		catch (IOException ioExcpt) {
+			System.out.println("\nThere was an issue opening: " + fileName);
+			System.out.println("Please try again or try another file name.\n");
 		}
 		
-		// Create a scanner to read the file
-		Scanner fileScanner = new Scanner(inputStream);
-		
-		this.readFileToRoster(fileScanner);
-		fileScanner.close();
+		if (inputStream != null) {
+			Scanner fileScanner = new Scanner(inputStream);
+			
+			this.readFileToRoster(fileScanner);
+			System.out.println("\nData from " + fileName + " has been loaded to the roster.\n");
+			
+			fileScanner.close();
+		}
 	}
 	
 	

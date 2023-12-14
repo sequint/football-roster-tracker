@@ -1,3 +1,4 @@
+import java.lang.NumberFormatException;
 
 public class TeamRosterTrackerInterface {
 
@@ -16,7 +17,7 @@ public class TeamRosterTrackerInterface {
 				menuChoice = menu.getMenuChoice();
 				menu.handleMenuChoice(roster);
 			}
-			catch (Exception e) {
+			catch (NumberFormatException numExcpt) {
 				System.out.println("\nInvalid input. Please only enter an integer for your menu choice.\n");
 			}
 		} while (menuChoice != 5);

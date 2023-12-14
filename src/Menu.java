@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.lang.NullPointerException;
+import java.lang.NumberFormatException;
 
 public class Menu {
 	private Scanner scnr;
@@ -59,7 +60,6 @@ public class Menu {
 				break;
 				
 			case 3:
-				System.out.println("Enter file name to save roster to (will be saved as a .txt file, do not include '.txt' in name)");  // Save specific message
 				String fileName = this.getFileName(this.scnr);
 				roster.saveRosterToFile(fileName);
 				
@@ -68,15 +68,22 @@ public class Menu {
 				break;
 				
 			case 4:
-//				String fileName = this.getFileName(this.scnr);
+				String fileNameToLoad = this.getFileNameToLoad(this.scnr);
+				roster.loadRosterFromFile(fileNameToLoad);
+				
 				break;
 				
 			case 5:
+				// Close the class scanner
+				this.scnr.close();
+				
 				System.out.println("Have a great day!");
+				
 				break;
 				
 			default:
 				System.out.println("\nPlease enter a number 1-5 only.\n");
+				
 				break;
 		}
 	}
@@ -149,10 +156,18 @@ public class Menu {
 	}
 	
 	private String getFileName(Scanner scnr) {
-		System.out.print("File name: ");
+		System.out.print("Enter file name to save roster to (will be saved as a .txt file, do not include '.txt' in name): ");
 		
 		String fileName = scnr.nextLine();
 		
 		return fileName + ".txt";
+	}
+	
+	private String getFileNameToLoad(Scanner scnr) {
+		System.out.print("Enter a file name to load roster data from: ");
+		
+		String fileName = scnr.nextLine();
+		
+		return fileName;
 	}
 }
