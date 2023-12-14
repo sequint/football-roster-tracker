@@ -150,30 +150,48 @@ public class TeamRosterTrackerInterface {
 	//**** CASE 2 ****//
 	
 	private static void getPlayerInformation(FootballRoster roster, Scanner scnr) {
+		int numPlayers = roster.getTotalNumberOfPlayers();
 		int playerIndex = 0;
+		boolean inputIsNotValid = false;
 		
-		System.out.println("\nEnter the index position within the roster array to get that players info: ");
-		
-		try {
-			playerIndex = Integer.parseInt(scnr.nextLine());
-			
-			Player player = roster.getPlayer(playerIndex);
-			
-			String positionType = player.hasDefensivePosition() ? "Defense" : "Offense";
-			
-			System.out.println("\nPlayer Info:\n");
-			System.out.println("Name: " + player.getName());
-			System.out.println("Position: " + player.getPosition());
-			System.out.println("Total Passing/Receiving/Rushing Yards: " + player.getpassingReceivingRushingYards());
-			System.out.println("Position Type: " + positionType);
-			System.out.println();
+		// If the roster has no players print an error message
+		if (numPlayers < 1) {
+			System.out.println("\nPlease enter a player into the roster before trying to access one.");
 		}
-		catch (NullPointerException nullExpt) {
-			System.out.print("\nThat index does not exist in the roster array.\n\n");
+		// Otherwise, get the information
+		else {
+			do {
+				System.out.print("\nEnter the index position within the roster array to get that players info: ");
+				
+				try {
+					playerIndex = Integer.parseInt(scnr.nextLine());
+					
+					inputIsNotValid = false;  // If an error was not thrown, the index was valid
+					
+					Player player = roster.getPlayer(playerIndex);
+					
+					String positionType = player.hasDefensivePosition() ? "Defense" : "Offense";
+					
+					System.out.println("\nPlayer Info:\n");
+					System.out.println("Name: " + player.getName());
+					System.out.println("Position: " + player.getPosition());
+					System.out.println("Total Passing/Receiving/Rushing Yards: " + player.getpassingReceivingRushingYards());
+					System.out.println("Position Type: " + positionType);
+					System.out.println();
+				}
+				catch (NullPointerException nullExpt) {
+					System.out.println("\nThat index does not exist in the roster array.");
+					System.out.println("You may enter a number between 0 and " + (roster.getTotalNumberOfPlayers() - 1) + " to get a player's information.");
+					
+					inputIsNotValid = true;
+				}
+				catch (Exception e) {
+					System.out.print("\nInvalid input, please enter an integer to access a player's information.\n");
+					
+					inputIsNotValid = true;
+				}
+			} while (inputIsNotValid);
 		}
-//		catch (Exception e) {
-//			System.out.print("\nInvalid input, please enter an integer to access a player's information.\n\n");
-//		}
 	}
 	
 	
