@@ -103,7 +103,6 @@ public class FootballRoster {
 	
 	private void printPlayerInfo(PrintWriter writer) {
 		for (int i = 0; i < this.totalPlayers; i++) {
-			System.out.println(this.rosterArray[i].getName());
 			writer.println(this.rosterArray[i].getName());
 			writer.println(this.rosterArray[i].getPosition());
 			writer.println(this.rosterArray[i].getpassingReceivingRushingYards());
