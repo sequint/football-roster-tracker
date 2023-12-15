@@ -3,7 +3,6 @@ import java.io.FileOutputStream;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.NullPointerException;
 
 public class FootballRoster {
 	private Player[] rosterArray;

@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 import java.nio.file.Files;
-import java.util.InputMismatchException;
 import java.io.File;
 
 public class TeamRosterTrackerInterface {
