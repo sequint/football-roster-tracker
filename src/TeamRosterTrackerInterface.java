@@ -1,3 +1,11 @@
+/*
+ * Steven Quintana
+ * 10/31/2023
+ * Description: This program allows a user to create and keep track of players in a roster.
+ * The user can add and lookup players.
+ * The user can also save the roster to a file, and load a roster from a file.
+ */
+
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 import java.nio.file.Files;
