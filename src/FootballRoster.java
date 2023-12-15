@@ -136,7 +136,9 @@ public class FootballRoster {
 			String name = fileScanner.nextLine();
 			String position = fileScanner.nextLine();
 			double yards = Double.parseDouble(fileScanner.nextLine());
-			boolean isDefensive = this.getIsDefense(fileScanner);
+			boolean isDefensive = fileScanner.nextLine().equals("defense") ? true : false;
+			
+			System.out.println(isDefensive);
 			
 			// Create an instance of a player with the information read from the file
 			Player nextPlayer = new Player(name, position, yards, isDefensive);
@@ -147,16 +149,6 @@ public class FootballRoster {
 			// Increment the total players to the next null index and value of total players in the array
 			this.totalPlayers++;
 		}
-	}
-	
-	private boolean getIsDefense(Scanner scnr) {
-		String positionType = scnr.nextLine();
-		
-		if (positionType == "defense") {
-			return true;
-		}
-		
-		return false;
 	}
 	
 	private void clearRosterArray() {
