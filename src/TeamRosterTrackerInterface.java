@@ -131,14 +131,19 @@ public class TeamRosterTrackerInterface {
 			System.out.print("Is the player in a defensive position? (y/n)");
 			yesOrNo = scnr.next().charAt(0);
 			
-			if (Character.toLowerCase(yesOrNo) == 'y' || Character.toLowerCase(yesOrNo) == 'n') {
-				isDefensive = yesOrNo == 'y' ? true : false;
+			if (Character.toLowerCase(yesOrNo) == 'y') {
+				isDefensive = true;
 				inputIsNotValid = false;
-				scnr.nextLine();  // Clear the input
+				clearScannerInput(scnr);
+			}
+			else if (Character.toLowerCase(yesOrNo) == 'n') {
+				isDefensive = false;
+				inputIsNotValid = false;
+				clearScannerInput(scnr);
 			}
 			else {
 				System.out.println("\nPlease enter with either a 'y' or an 'n'");
-				scnr.nextLine();  // Clear the input
+				clearScannerInput(scnr);
 			}
 		} while (inputIsNotValid);
 		
@@ -215,7 +220,7 @@ public class TeamRosterTrackerInterface {
 				
 				validResponse = isYesOrNo(response);
 				
-				scnr.nextLine();  //Clear the scanner
+				clearScannerInput(scnr);
 			} while (!validResponse);
 			
 			// Save the file if the user selects y, otherwise return to the menu
@@ -270,6 +275,12 @@ public class TeamRosterTrackerInterface {
 	//**** DEFAULT CASE ****//
 	private static void printInputErrorMessage() {
 		System.out.println("\nPlease enter a number 1-5 only.\n");
+	}
+	
+	
+	//**** SHARED FUNCTION ****//
+	private static void clearScannerInput(Scanner scnr) {
+		scnr.nextLine();
 	}
 
 }

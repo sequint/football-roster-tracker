@@ -102,10 +102,12 @@ public class FootballRoster {
 	
 	private void printPlayerInfo(PrintWriter writer) {
 		for (int i = 0; i < this.totalPlayers; i++) {
-			writer.println(this.rosterArray[i].getName());
-			writer.println(this.rosterArray[i].getPosition());
-			writer.println(this.rosterArray[i].getpassingReceivingRushingYards());
-			writer.println(this.getPositionType(this.rosterArray[i]));
+			Player player = this.rosterArray[i];
+			
+			writer.println(player.getName());
+			writer.println(player.getPosition());
+			writer.println(player.getpassingReceivingRushingYards());
+			writer.println(this.getPositionType(player));
 		}
 	}
 	
@@ -114,7 +116,7 @@ public class FootballRoster {
 			return "defense";
 		}
 		
-		return "offense";
+		return "offence";
 	}
 	
 	private FileInputStream openInputStream(String fileName) throws IOException {
@@ -134,7 +136,7 @@ public class FootballRoster {
 			String name = fileScanner.nextLine();
 			String position = fileScanner.nextLine();
 			double yards = Double.parseDouble(fileScanner.nextLine());
-			boolean isDefensive = fileScanner.nextLine() == "defense" ? true : false; // Sets the isDefensive boolean based on position type written to file
+			boolean isDefensive = this.getIsDefense(fileScanner);
 			
 			// Create an instance of a player with the information read from the file
 			Player nextPlayer = new Player(name, position, yards, isDefensive);
@@ -145,6 +147,16 @@ public class FootballRoster {
 			// Increment the total players to the next null index and value of total players in the array
 			this.totalPlayers++;
 		}
+	}
+	
+	private boolean getIsDefense(Scanner scnr) {
+		String positionType = scnr.nextLine();
+		
+		if (positionType == "defense") {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private void clearRosterArray() {
